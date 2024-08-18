@@ -10,9 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.5.3",
     "nuxt": "^3.12.4",
-    "vant": "^4.9.4",
     "vue": "latest"
   }
 }
