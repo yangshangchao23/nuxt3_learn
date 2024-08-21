@@ -12,11 +12,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.1.5",
     "@nuxt/eslint": "^0.5.1",
+    "@nuxt/icon": "^1.4.7",
     "nuxt": "^3.12.4",
     "vue": "latest"
   },
   "devDependencies": {
+    "@nuxtjs/color-mode": "^3.4.4",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "prettier": "3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6"
