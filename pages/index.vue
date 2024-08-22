@@ -1,6 +1,23 @@
+<script lang="ts" setup>
+const colorMode = useColorMode()
+console.log(colorMode.preference)
+
+const { locale, setLocale } = useI18n()
+
+onMounted(() => {
+  console.log("locale--language", locale.value)
+})
+const changeLocale = () => {
+  console.log('xxx,here');
+  
+  locale.value === 'en' ? setLocale('zh') : setLocale('en')
+}
+</script>
+
 <template>
   <div>
     <NuxtLink to="/test">跳转测试</NuxtLink>
+    <h3>模式选择</h3>
     <!-- 黑暗模式选择 -->
     <select v-model="$colorMode.preference">
       <option value="system">System</option>
@@ -8,10 +25,19 @@
       <option value="dark">Dark</option>
       <option value="sepia">Sepia</option>
     </select>
+    <h3>语言切换</h3>
+    <div>
+      <button class="bg-sky-700 sm:px-8 sm:py-3 rounded" @click="setLocale('zh')">
+        中文
+      </button>
+      <button class="bg-sky-700 sm:px-8 sm:py-3 rounded" @click="setLocale('en')">
+        英文
+      </button>
+      <button class="bg-sky-700 sm:px-8 sm:py-3 rounded" @click="changeLocale()">
+        切换
+      </button>
+      <p>{{ $t('welcome') }}</p>
+      <p>{{ $t('messages') }}</p>
+    </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-const colorMode = useColorMode()
-console.log(colorMode.preference)
-</script>

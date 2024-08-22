@@ -15,6 +15,7 @@
     "@heroicons/vue": "^2.1.5",
     "@nuxt/eslint": "^0.5.1",
     "@nuxt/icon": "^1.4.7",
+    "@nuxtjs/i18n": "^8.5.0",
     "nuxt": "^3.12.4",
     "vue": "latest"
   },
