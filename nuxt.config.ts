@@ -22,7 +22,7 @@ export default defineNuxtConfig({
   i18n: {
     strategy: 'no_prefix', // 添加路由前缀的方式  no_prefix 不添加  prefix_and_default
     locales: ['en', 'zh'], // 配置语种
-    // defaultLocale: 'zh', // 默认语种
+    defaultLocale: 'zh', // 默认语种
     vueI18n: './i18n.config.ts' // if you are using custom path, default
   }
 })
