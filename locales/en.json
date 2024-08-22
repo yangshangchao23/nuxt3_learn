@@ -1,4 +1,7 @@
 {
-  "welcome": "hello",
-  "messages": "world!"
+ "index" :{
+    "welcome": "hello",
+    "messages": "world!",
+    "tips": "thank you"
+ }
 }

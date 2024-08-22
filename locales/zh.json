@@ -1,4 +1,7 @@
 {
-  "welcome": "你好",
-  "messages": "我的世界!"
+  "index": {
+    "welcome": "你好",
+    "messages": "世界！",
+    "tips": "谢谢"
+  }
 }

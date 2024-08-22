@@ -5,12 +5,12 @@ console.log(colorMode.preference)
 const { locale, setLocale } = useI18n()
 
 onMounted(() => {
-  console.log("locale--language", locale.value)
+  console.log('locale--language', locale.value)
 })
 const changeLocale = () => {
-  console.log('xxx,here');
-  
-  locale.value === 'en' ? setLocale('zh') : setLocale('en')
+  console.log('xxx,here')
+  // locale.value === 'en' ? setLocale('zh') : setLocale('en')
+  locale.value = locale.value === 'en' ? 'zh' : 'en'
 }
 </script>
 
@@ -27,17 +27,26 @@ const changeLocale = () => {
     </select>
     <h3>语言切换</h3>
     <div>
-      <button class="bg-sky-700 sm:px-8 sm:py-3 rounded" @click="setLocale('zh')">
+      <button
+        class="rounded bg-sky-700 sm:px-8 sm:py-3"
+        @click="setLocale('zh')"
+      >
         中文
       </button>
-      <button class="bg-sky-700 sm:px-8 sm:py-3 rounded" @click="setLocale('en')">
+      <button
+        class="rounded bg-sky-700 sm:px-8 sm:py-3"
+        @click="setLocale('en')"
+      >
         英文
       </button>
-      <button class="bg-sky-700 sm:px-8 sm:py-3 rounded" @click="changeLocale()">
+      <button
+        class="rounded bg-sky-700 sm:px-8 sm:py-3"
+        @click="changeLocale()"
+      >
         切换
       </button>
-      <p>{{ $t('welcome') }}</p>
-      <p>{{ $t('messages') }}</p>
+      <p>{{ $t('index.welcome') }}</p>
+      <p>{{ $t('index.messages') }}</p>
     </div>
   </div>
 </template>
