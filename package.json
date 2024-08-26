@@ -22,7 +22,8 @@
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
     "nuxt": "^3.12.4",
-    "vue": "latest"
+    "vue": "latest",
+    "vuetify-nuxt-module": "^0.17.1"
   },
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.4.4",

@@ -6,8 +6,9 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
-    "@nuxt/icon",
-    "@nuxtjs/i18n"
+    '@nuxt/icon',
+    '@nuxtjs/i18n',
+    'vuetify-nuxt-module',
   ],
   colorMode: {
     preference: 'system', // default value of $colorMode.preference
@@ -23,6 +24,14 @@ export default defineNuxtConfig({
     strategy: 'no_prefix', // 添加路由前缀的方式  no_prefix 不添加  prefix_and_default
     locales: ['en', 'zh'], // 配置语种
     defaultLocale: 'zh', // 默认语种
-    vueI18n: './i18n.config.ts' // if you are using custom path, default
-  }
+    vueI18n: './i18n.config.ts', // if you are using custom path, default
+  },
+  vuetify: {
+    moduleOptions: {
+      /* module specific options */
+    },
+    vuetifyOptions: {
+      /* vuetify options */
+    },
+  },
 })

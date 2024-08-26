@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLayout>
+    <NuxtLayout name="defaults">
       <NuxtPage />
     </NuxtLayout>
     <!-- # Attribute "v-for" should go before "class".（参：vue/attributes-order | eslint-plugin-vue） -->
