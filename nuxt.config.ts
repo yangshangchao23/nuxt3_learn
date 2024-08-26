@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
+
 export default defineNuxtConfig({
+  build: {
+    transpile: ['vuetify'],
+  },
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   modules: [
@@ -8,7 +13,12 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxt/icon',
     '@nuxtjs/i18n',
-    'vuetify-nuxt-module',
+    (_options, nuxt) => {
+      nuxt.hooks.hook('vite:extendConfig', (config) => {
+        // @ts-expect-error
+        config.plugins.push(vuetify({ autoImport: true }))
+      })
+    },
   ],
   colorMode: {
     preference: 'system', // default value of $colorMode.preference
@@ -26,12 +36,11 @@ export default defineNuxtConfig({
     defaultLocale: 'zh', // 默认语种
     vueI18n: './i18n.config.ts', // if you are using custom path, default
   },
-  vuetify: {
-    moduleOptions: {
-      /* module specific options */
-    },
-    vuetifyOptions: {
-      /* vuetify options */
+  vite: {
+    vue: {
+      template: {
+        transformAssetUrls,
+      },
     },
   },
 })
