@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getRegisterSimple } from '~/api/sysconfig'
+
 onMounted(() => {
   checkIsSimple()
 })
@@ -20,7 +22,7 @@ const login = async () => {
 </script>
 <template>
   <div>
-    <v-btn @click="checkIsSimple()">查看注册版本</v-btn>
+    <v-btn @click="checkIsSimple">查看注册版本</v-btn>
     <v-btn @click="login">登录</v-btn>
   </div>
 </template>
