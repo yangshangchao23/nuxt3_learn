@@ -2,6 +2,13 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      // 不同环境请求baseUrl配置
+      API_BASE_DEV: 'https://chattax.yunhelp.com:883/server',
+      API_BASE_PROD: 'https://{host}/server',
+    },
+  },
   build: {
     transpile: ['vuetify'],
   },
@@ -45,6 +52,6 @@ export default defineNuxtConfig({
   },
   imports: {
     // Auto-import pinia stores defined in `~/stores`
-    dirs: ['stores', 'api']
-  }
+    dirs: ['stores', 'api'],
+  },
 })
