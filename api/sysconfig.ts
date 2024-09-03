@@ -20,3 +20,10 @@ export const getRegisterSimple = () => {
 export const doLoginRest = (params: any) => {
   return service.post('/rest/login', { ...params, clientType: '1' })
 }
+
+export const getBannerList = () => {
+  const { $myFetch } = useNuxtApp()
+  return $myFetch('/rest/getSysConfigByKey/server.register.simple', {
+    method: 'GET',
+  })
+}

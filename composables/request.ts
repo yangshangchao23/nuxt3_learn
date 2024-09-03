@@ -40,6 +40,10 @@ function handleRequest(options: RequestOptions) {
 
 // 响应拦截器
 function handleResponse(response: any) {
+  if (response.code !== 200) {
+    console.log(response, 'response')
+    return ElMessage.error(`${response.message}, ${response.data}`)
+  }
   if (response.error) {
     throw new Error(response.error.message || '响应错误')
   }

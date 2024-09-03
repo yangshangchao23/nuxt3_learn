@@ -26,6 +26,7 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
+    '@element-plus/nuxt',
   ],
   colorMode: {
     preference: 'system', // default value of $colorMode.preference
@@ -53,5 +54,8 @@ export default defineNuxtConfig({
   imports: {
     // Auto-import pinia stores defined in `~/stores`
     dirs: ['stores', 'api'],
+  },
+  elementPlus: {
+    /** Options */
   },
 })
