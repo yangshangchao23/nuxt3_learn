@@ -3,6 +3,8 @@
     <NuxtLayout name="defaults">
       <NuxtPage />
     </NuxtLayout>
+    <!-- 全局注册提示组件 -->
+    <Snackbar ref="snackbarRef" />
     <!-- # Attribute "v-for" should go before "class".（参：vue/attributes-order | eslint-plugin-vue） -->
     <!-- <NuxtLink
       v-for="item in [1, 2, 3]"
@@ -22,6 +24,12 @@
 // const title: string = '我是标题'
 // const acc: number = '123'
 // console.log(acc)
+
+// 全局注册提示组件唤起方法
+const snackbarRef = ref(null)
+provide('showSnackbar', (msg, color, duration) => {
+  snackbarRef.value.showSnackbar(msg, color, duration)
+})
 </script>
 
 <style>
