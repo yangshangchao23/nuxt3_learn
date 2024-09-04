@@ -3,7 +3,8 @@ import { getBannerList } from '~/api/sysconfig'
 
 onMounted(() => {
   // checkIsSimple()
-  checkIsSimpleMyFetch()
+  // checkIsSimpleMyFetch()
+  checkIsSimpleMyFetchV2()
 })
 
 const checkIsSimple = async () => {
@@ -30,6 +31,11 @@ const checkIsSimpleMyFetch = async () => {
 }
 
 const loginMyFetch = async () => {}
+
+const checkIsSimpleMyFetchV2 = async () => {
+  const res = await getRegisterSimpleV2()
+  console.log(res, 'res--checkIsSimpleMyFetchV2')
+}
 </script>
 <template>
   <div>
@@ -39,6 +45,8 @@ const loginMyFetch = async () => {}
     <h4>使用plugin-myfetch</h4>
     <v-btn @click="checkIsSimpleMyFetch">查看注册版本</v-btn>
     <v-btn @click="loginMyFetch">登录</v-btn>
+    <h4>使用自己封装的composables\request_v2.ts</h4>
+    <v-btn @click="checkIsSimpleMyFetchV2">查看注册版本</v-btn>
   </div>
 </template>
 

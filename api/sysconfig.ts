@@ -1,4 +1,5 @@
 import { service } from '~/composables/request'
+import { serviceV2 } from '~/composables/request_v2'
 
 // 是否开启简易注册模式(true启用登录注册版本2)
 export const getRegisterSimple = () => {
@@ -25,5 +26,11 @@ export const getBannerList = () => {
   const { $myFetch } = useNuxtApp()
   return $myFetch('/rest/getSysConfigByKey/server.register.simple', {
     method: 'GET',
+  })
+}
+
+export const getRegisterSimpleV2 = () => {
+  return serviceV2.get('/rest/getSysConfigByKey/server.register.simple', {
+    headers: { 'c-fronted': '11' },
   })
 }
