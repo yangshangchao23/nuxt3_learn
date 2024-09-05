@@ -29,6 +29,7 @@ export default defineNuxtConfig({
     '@element-plus/nuxt',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
+    '@vueuse/nuxt',
   ],
   colorMode: {
     preference: 'system', // default value of $colorMode.preference
