@@ -9,7 +9,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test:unit": "vitest"
   },
   "dependencies": {
     "@heroicons/vue": "^2.1.5",
@@ -35,10 +36,12 @@
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "@tailwindcss/typography": "^0.5.14",
     "element-plus": "^2.8.1",
+    "jsdom": "^25.0.0",
     "prettier": "3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
     "sass": "^1.77.8",
     "vite-plugin-vuetify": "^2.0.4",
+    "vitest": "^2.0.5",
     "vuetify": "^3.7.0"
   }
 }
