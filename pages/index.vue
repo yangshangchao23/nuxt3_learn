@@ -21,6 +21,9 @@
       class="text-blue-500 underline underline-offset-auto"
       >element</NuxtLink
     >
+    <NuxtLink to="/pinia" class="text-blue-500 underline underline-offset-auto"
+      >pinia</NuxtLink
+    >
     <div v-for="(item, index) in 100" class="h-6 w-auto">内容{{ index }}</div>
   </v-container>
 </template>

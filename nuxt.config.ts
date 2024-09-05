@@ -27,6 +27,8 @@ export default defineNuxtConfig({
       })
     },
     '@element-plus/nuxt',
+    '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
   ],
   colorMode: {
     preference: 'system', // default value of $colorMode.preference
@@ -52,7 +54,7 @@ export default defineNuxtConfig({
     },
   },
   imports: {
-    // Auto-import pinia stores defined in `~/stores`
+    // Auto-import pinia store defined in `~/store`
     dirs: ['stores', 'api'],
   },
   elementPlus: {

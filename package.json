@@ -17,6 +17,7 @@
     "@nuxt/eslint": "^0.5.1",
     "@nuxt/icon": "^1.4.7",
     "@nuxtjs/i18n": "^8.5.0",
+    "@pinia/nuxt": "^0.5.4",
     "@shikijs/markdown-it": "^1.14.1",
     "dayjs": "^1.11.13",
     "markdown-it": "^14.1.0",
@@ -24,12 +25,14 @@
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
     "nuxt": "^3.12.4",
+    "pinia": "^2.2.2",
     "vue": "latest"
   },
   "devDependencies": {
     "@element-plus/nuxt": "^1.0.10",
     "@nuxtjs/color-mode": "^3.4.4",
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "@tailwindcss/typography": "^0.5.14",
     "element-plus": "^2.8.1",
     "prettier": "3.3.3",
