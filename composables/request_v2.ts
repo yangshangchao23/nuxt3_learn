@@ -1,7 +1,5 @@
 // import { ProxyAgent, setGlobalDispatcher } from 'undici'
 
-import log from '~/server/middleware/log'
-
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
 // 所有请求代理
@@ -16,7 +14,7 @@ const createFetchRequest = (
   data?: any,
   reqOpts?: any
 ) => {
-  console.log('createFetchRequest-opts', data, reqOpts)
+  // console.log('createFetchRequest-opts', data, reqOpts)
   const {
     public: { API_BASE_DEV, API_BASE_PROD },
   } = useRuntimeConfig()
@@ -83,15 +81,35 @@ const createFetchRequest = (
       // }
     },
     // 响应拦截器
-    async onResponse({ request, response, options }) {
-      console.log('[fetch response]', request, response)
-      // 状态码非200的处理逻辑
-      if (response.status !== 200) {
-        // 响应错误处理
-        handleResponseError(response)
+    async onResponse({ response }) {
+      // request --> https://chattax.yunhelp.com:883/server/rest/login
+      // response -->
+      // Response {
+      //   _data : {code: 500, message: '操作失败', timestamp: 1725503011185, data: '认证失败', messageCode: 'E001'}
+      //   body : ReadableStream
+      //   bodyUsed : true
+      //   headers : Headers {}
+      //   ok : true
+      //   redirected : false
+      //   status : 200
+      //   statusText : "OK"
+      //   type : "cors"
+      //   url : "https://chattax.yunhelp.com:883/server/rest/login"
+      //  }
+      console.log('[fetch response]', response)
+      // HTTP状态码非200的处理逻辑--应该会触发onResponseError
+      // if (response.status !== 200) {
+      //   // 响应错误处理--但是一般不应该在这里处理，应该在onResponseError拦截器中处理
+      //   return handleResponseError(response)
+      // }
+      // 响应成功,直接返回数据-data结构
+      // 但是后端接口返回数据结构code码非200--》说明返回有问题了
+      if (response._data?.code !== 200) {
+        // 登录鉴权等根据后端code的不同做处理，具体看后端的返回约定
+        const { data, message } = response._data
+        return ElMessage.error(`${message},${data}`)
       }
-      // 响应成功,返回数据-data结构
-      return response
+      return response._data
     },
     // 响应错误拦截器（处理）
     async onResponseError({ request, response, options }) {
@@ -116,16 +134,17 @@ const createFetchRequest = (
   })
 }
 
-const handleResponseError = (res: any) => {
-  console.log('handleResponseError', res)
+const handleResponseError = (response: any) => {
+  console.log('handleResponseError', response)
   // 跳转401需登录
   // router.push(`/login?callback=${route.path}`)
   // 跳转403 404 500页面等逻辑
   // if (res) {
-  return
+  // return
   // }
   // 状态码非403 404 500直接弹窗提示
-  ElMessage.error(res.message)
+  ElMessage.error(response.message)
+  return Promise.reject(new Error(response._data.msg))
 }
 
 export const serviceV2 = {

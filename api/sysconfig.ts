@@ -34,3 +34,7 @@ export const getRegisterSimpleV2 = () => {
     headers: { 'c-fronted': '11' },
   })
 }
+
+export const doLoginRestV2 = (params: any) => {
+  return serviceV2.post('/rest/login', { ...params, clientType: '1' })
+}

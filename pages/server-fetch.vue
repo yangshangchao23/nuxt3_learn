@@ -25,7 +25,6 @@ const login = async () => {
 const checkIsSimpleMyFetch = async () => {
   const res = await getBannerList()
   console.log(res, 'res--getbannerlisttt')
-
   // const { data } = await useAsyncData(() => getBannerList())
   // console.log(data, 'data')
 }
@@ -35,6 +34,16 @@ const loginMyFetch = async () => {}
 const checkIsSimpleMyFetchV2 = async () => {
   const res = await getRegisterSimpleV2()
   console.log(res, 'res--checkIsSimpleMyFetchV2')
+}
+
+const loginV2 = async () => {
+  const params = {
+    username: 'yangsc',
+    password: 'Yangsc333',
+    botId: '97342d49e8284c549da35b9876d49335',
+  }
+  const res = await doLoginRestV2(params)
+  console.log(res, 'login')
 }
 </script>
 <template>
@@ -47,6 +56,7 @@ const checkIsSimpleMyFetchV2 = async () => {
     <v-btn @click="loginMyFetch">登录</v-btn>
     <h4>使用自己封装的composables\request_v2.ts</h4>
     <v-btn @click="checkIsSimpleMyFetchV2">查看注册版本</v-btn>
+    <v-btn @click="loginV2">登录</v-btn>
   </div>
 </template>
 
