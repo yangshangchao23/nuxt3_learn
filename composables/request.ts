@@ -41,7 +41,7 @@ function handleRequest(options: RequestOptions) {
 // 响应拦截器
 function handleResponse(response: any) {
   if (response.code !== 200) {
-    console.log(response, 'response')
+    // console.log(response, 'response')
     return ElMessage.error(`${response.message}, ${response.data}`)
   }
   if (response.error) {
@@ -89,7 +89,7 @@ function createFetchRequest(method: HttpMethod) {
         body: data,
         ...options,
       })
-      console.log(options, 'options--$fetchAPI')
+      // console.log(options, 'options--$fetchAPI')
       return handleResponse(response)
     } catch (error) {
       console.error('请求错误:', error)
