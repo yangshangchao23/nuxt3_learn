@@ -53,6 +53,14 @@ export default defineNuxtConfig({
         transformAssetUrls,
       },
     },
+    // 初始化样式方案2-能读取变量
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "~/assets/css/base.scss";`,
+        },
+      },
+    }
   },
   imports: {
     // Auto-import pinia store defined in `~/store`
@@ -61,4 +69,6 @@ export default defineNuxtConfig({
   elementPlus: {
     /** Options */
   },
+  // 初始化样式方案1-无法读取变量
+  // css: ['~/assets/css/base.scss'],
 })

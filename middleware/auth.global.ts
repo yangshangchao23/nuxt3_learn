@@ -5,7 +5,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
   } else {
     console.log('client')
   }
-  let unAuthRoutes = ['/', '/login', '/pinia'] // 假设这三个页面都需要seo优化
+  let unAuthRoutes = ['/', '/login', '/pinia', '/global-css'] // 假设这三个页面都需要seo优化
   // type tokenType =
   let token: string | null = ''
   if (import.meta.client) {

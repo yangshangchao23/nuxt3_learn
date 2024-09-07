@@ -32,6 +32,11 @@
       class="text-blue-500 underline underline-offset-auto"
       >middleware</NuxtLink
     >
+    <NuxtLink
+      to="/global-css"
+      class="text-blue-500 underline underline-offset-auto"
+      >global-css</NuxtLink
+    >
     <div v-for="(item, index) in 100" class="h-6 w-auto">内容{{ index }}</div>
   </v-container>
 </template>
