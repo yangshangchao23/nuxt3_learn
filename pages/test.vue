@@ -32,7 +32,7 @@ console.log(\`1 + 1 = \${result}\`);
         Hello Tailwind CSS
       </div>
     </div>
-    <div class="absolute right-0 top-0 m-4">
+    <div class="absolute right-10 top-12 m-4">
       <ColorMode />
     </div>
     <div class="prose mt-4">

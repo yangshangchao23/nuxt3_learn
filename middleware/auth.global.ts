@@ -5,14 +5,14 @@ export default defineNuxtRouteMiddleware((to, from) => {
   } else {
     console.log('client')
   }
-  let unAuthRoutes = ['/', '/login', '/pinia', '/global-css'] // 假设这三个页面都需要seo优化
+  let unAuthRoutes = ['/pinia', '/global-css'] // 假设这三个页面都需要seo优化
   // type tokenType =
   let token: string | null = ''
   if (import.meta.client) {
     token = localStorage.getItem('token')
   }
   if (!token) {
-    if (!unAuthRoutes.includes(to.path)) {
+    if (unAuthRoutes.includes(to.path)) {
       return navigateTo({
         path: '/login',
         query: {
