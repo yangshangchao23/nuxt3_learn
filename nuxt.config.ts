@@ -6,11 +6,11 @@ export default defineNuxtConfig({
     baseURL: '/nuxt3_learn/',
   },
   ssr: false,
-  nitro: {
-    output: {
-      publicDir: 'docs'
-    }
-  },
+  // nitro: {
+  //   output: {
+  //     publicDir: 'docs'
+  //   }
+  // },
   experimental: {
     payloadExtraction: false
   }
