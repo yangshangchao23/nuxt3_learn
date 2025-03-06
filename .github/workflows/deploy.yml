@@ -3,7 +3,7 @@ name: Deploy Nuxt3 App to GitHub Pages by branch
 on:
   push:
     branches:
-      - template_blank # 根据实际的主分支名称修改
+      - main # 根据实际的主分支名称修改
 
 permissions:
   contents: write # 给予权限
