@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # 使用适合的 Node.js 版本
+          node-version: '22' # 使用适合的 Node.js 版本
 
       - name: Enable pnpm
         run: corepack enable # 启用 pnpm 或 yarn
