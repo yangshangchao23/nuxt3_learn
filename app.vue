@@ -23,7 +23,7 @@
 // console.info('错误打印输出')
 // const title: string = '我是标题'
 // const acc: number = '123'
-// console.log(acc)
+// console.log('acc')
 
 // 全局注册提示组件唤起方法
 const snackbarRef = ref(null)
