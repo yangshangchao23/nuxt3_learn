@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     baseURL: '/nuxt3_learn/',
-    buildAssetsDir: 'nuxt_assets',
+    // buildAssetsDir: 'nuxt_assets',
   },
   ssr: false,
   // nitro: {
@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   //     publicDir: 'docs',
   //   }
   // },
-  experimental: {
-    payloadExtraction: false,
-  },
+  // experimental: {
+  //   payloadExtraction: false,
+  // },
 });
