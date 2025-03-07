@@ -25,8 +25,8 @@ jobs:
         run: corepack enable # 启用 pnpm 或 yarn
 
       - name: Install Dependencies
-        # run: pnpm install # 或 yarn install，根据你的偏好选择
-        run: pnpm install --no-frozen-lockfile # 安装依赖找package.json去了，报错没有对应版本。所以添加了--no-frozen-lockfile-允许更新锁文件以解决版本冲突‌
+        run: pnpm install # 或 yarn install，根据你的偏好选择
+        # run: pnpm install --no-frozen-lockfile # 安装依赖找package.json去了，报错没有对应版本。所以添加了--no-frozen-lockfile-允许更新锁文件以解决版本冲突‌
 
       - name: Generate Static Site
         run: pnpm generate # 生成静态站点的命令
