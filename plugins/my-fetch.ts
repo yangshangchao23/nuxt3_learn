@@ -73,7 +73,7 @@ const handleResponse = <T>(
 
 export default defineNuxtPlugin(() => {
   const runtimeConfig = useRuntimeConfig()
-  console.log(runtimeConfig, 'defineNuxtPlugin')
+  // console.log(runtimeConfig, 'defineNuxtPlugin')
   const {
     public: { API_BASE_DEV, API_BASE_PROD },
   } = runtimeConfig
@@ -93,9 +93,9 @@ export default defineNuxtPlugin(() => {
     },
     // 响应拦截
     onResponse({ response }): any {
-      console.log(response, 'onResponse-myfetch1111')
+      // console.log(response, 'onResponse-myfetch1111')
 
-      console.log(response._data, 'onResponse-myfetch')
+      // console.log(response._data, 'onResponse-myfetch')
       // 在这里判断错误
       if (response.status !== ResponseStatusCodes.SUCCESS) {
         return handleFail(response)
@@ -105,9 +105,9 @@ export default defineNuxtPlugin(() => {
 
       if (response._data?.code === ResponseStatusCodes.SUCCESS) {
         response._data = response._data.data
-        console.log('hrere', response._data)
+        // console.log('hrere', response._data)
       } else {
-        console.log('here')
+        // console.log('here')
 
         return handleResponse(response)
       }

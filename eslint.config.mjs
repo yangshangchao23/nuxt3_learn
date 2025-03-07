@@ -18,6 +18,12 @@ export default withNuxt(
         math: 'always'
       }],
       'vue/no-v-html': 'off'
-    }
+    },
+    parser: '@typescript-eslint/parser',
+    plugins: ['@typescript-eslint'],
+    extends: [
+      'eslint:recommended',
+      'plugin:@typescript-eslint/recommended',
+    ],
   }
 )

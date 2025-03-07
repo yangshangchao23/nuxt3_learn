@@ -3,6 +3,9 @@
 <template>
   <v-container class="flex-column align-center flex justify-center">
     首页
+    <NuxtLink to="/test" class="text-blue-500 underline underline-offset-auto"
+      >clolormode-markdown</NuxtLink
+    >
     <NuxtLink to="/server" class="text-blue-500 underline underline-offset-auto"
       >跳转接口测试页面-useFetch</NuxtLink
     >
@@ -22,7 +25,7 @@
       >element</NuxtLink
     >
     <NuxtLink to="/pinia" class="text-blue-500 underline underline-offset-auto"
-      >pinia</NuxtLink
+      >pinia-needAuth</NuxtLink
     >
     <NuxtLink to="/vueuse" class="text-blue-500 underline underline-offset-auto"
       >vueuse</NuxtLink
@@ -32,6 +35,22 @@
       class="text-blue-500 underline underline-offset-auto"
       >tailwind-gradient</NuxtLink
     >
-    <div v-for="(item, index) in 100" class="h-6 w-auto">内容{{ index }}</div>
+    <NuxtLink>
+      <div v-for="(item, index) in 100" class="h-6 w-auto">内容{{ index }}</div>
+      to="/middleware" class="text-blue-500 underline underline-offset-auto"
+      >middleware</NuxtLink
+    >
+    <NuxtLink
+      to="/global-css"
+      class="text-blue-500 underline underline-offset-auto"
+      >global-css</NuxtLink
+    >
+    <NuxtLink to="/typing" class="text-blue-500 underline underline-offset-auto"
+      >typing</NuxtLink
+    >
+    <NuxtLink to="/card" class="text-blue-500 underline underline-offset-auto"
+      >card</NuxtLink
+    >
+    <!-- <div v-for="(item, index) in 100" class="h-6 w-auto">内容{{ index }}</div> -->
   </v-container>
 </template>
