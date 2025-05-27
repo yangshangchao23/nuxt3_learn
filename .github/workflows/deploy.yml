@@ -60,4 +60,3 @@ jobs:
       - name: Deploy to GitHub Pages # 部署到 GitHub Pages
         id: deployment # 步骤 ID
         uses: actions/deploy-pages@v4 # 使用的 action
-        publish_branch: gh-pages # 目标部署分支
