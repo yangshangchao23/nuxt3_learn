@@ -261,7 +261,7 @@ export default defineNuxtConfig({
 
 两个 flow 不优雅！ 能不能一步到位，不要经过分支啊？直接从 Github Action 就部署到 Github Pages 呢？ 所以需要以下第二种优化。并且要求：不设置 nuxt.config.ts 的打包配置，使用默认打包配置！
 
-#### **一步到位版**
+#### **🎈一步到位版**
 
 Github Action 打包 Nuxt3 项目并部署 Github Pages 
 
@@ -309,78 +309,48 @@ export default defineNuxtConfig({
 
 ![1741331993016](D:\ysc\TESTpro\nuxt3_learn\README.assets\1741331993016.png)
 
-# Nuxt 3 Minimal Starter
+### 其它问题总结：
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+#### Github的环境保护规则造成分支不允许部署到github-pages
 
-## Setup
+> 现象：将部署配置文件的部署分支改成template_devops，推送代码后报错
 
-Make sure to install the dependencies:
+   ```
+Deploy
+Branch "template_devops" is not allowed to deploy to github-pages due to environment protection rules.
+   ```
 
-```bash
-# npm
-npm install
+![1748316169973](D:\ysc\TESTpro\nuxt3_learn\README.assets\1748316169973.png)
 
-# pnpm
-pnpm install
+```shell
+问题原因：
+GitHub Pages的环境保护规则限制了template_devops分支部署。
 
-# yarn
-yarn install
+原因分析：
+1.GitHub Pages默认限制‌：GitHub Pages默认只允许特定分支（如gh-pages、main或master）作为部署源，而您尝试使用template_devops分支触发了保护规则
+2.‌环境保护规则‌：GitHub Pages有严格的环境保护规则，防止非授权分支直接部署到生产环境。
 
-# bun
-bun install
+解决问题：
+配置环境保护规则例外。
+进入仓库的‌Settings‌ > ‌Environments‌
+创建或编辑github-pages环境
+在‌Deployment branches‌中：
+添加template_devops到允许部署的分支列表
+或选择"All branches"允许所有分支部署19
 ```
 
-## Development Server
+观察发现：确实限制了以下4个分支的部署，并不包括template_devops。
 
-Start the development server on `http://localhost:3000`:
+![1748317255611](D:\ysc\TESTpro\nuxt3_learn\README.assets\1748317255611.png)
 
-```bash
-# npm
-npm run dev
+![1748317204716](D:\ysc\TESTpro\nuxt3_learn\README.assets\1748317204716.png)
 
-# pnpm
-pnpm run dev
+新增分支  “Add deployment branch or tag rule ”
 
-# yarn
-yarn dev
+重新push代码，触发部署即可。
 
-# bun
-bun run dev
-```
+#### 如果无需提交代码，如何触发重新部署
 
-## Production
+点进去对应的workflow，Re-run all jobs
 
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+![1748317649277](D:\ysc\TESTpro\nuxt3_learn\README.assets\1748317649277.png)
