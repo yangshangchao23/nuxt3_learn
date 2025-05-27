@@ -2,19 +2,30 @@
 host 添加下面一行即可安装成功 ：[参考](https://juejin.cn/post/7154586714416087076)
 185.199.108.133 raw.githubusercontent.com
 
-## 2025/3/7 学习打包上传部署至 github
+# 2025/3/7 学习打包上传部署至 Github
 
-参考[Nuxt3 通过 Github Action 部署 Github Pages 的最佳实践](https://juejin.cn/post/7352797634556395535#heading-0)
+### 参考资料
 
-注意现在为了清晰管理分支，专门新建 template_devops 分支，作为打包部署基础分支。
+[Nuxt3 通过 Github Action 部署 Github Pages 的最佳实践](https://juejin.cn/post/7352797634556395535#heading-0)
 
-原来的 template_blank 空白模板分支还原原来的状态。
+### 分支说明
 
-所以配置文件中的 on: push:branches: 应该改为 目标打包基础分支，比如 template_devops
+- 为了清晰管理分支，新建 template_devops 分支，作为打包部署基础分支。
 
-新增部署备份文件【deploy_backup.yml】和部署配置文件【.github\workflows\deploy.yml】
+
+- template_blank 为空白模板分支，已还原回空白模板代码。
+
+### 部署配置文件说明：
+
+- 备份文件【deploy_backup.yml】为使用Github Actions第一版的配置文件
+
+- 部署配置文件【.github\workflows\deploy.yml】为使用Github Actions一步到位版的配置文件
+
+- 部署配置文件中的 on: push:branches: 应该改为 目标打包基础分支，比如 template_devops
 
 ### 手动打包部署
+
+1. 初始配置
 
 ```typescript
 // nuxt.config.ts
@@ -24,17 +35,29 @@ export default defineNuxtConfig({
 });
 ```
 
-尝试执行`pnpm build` 构建（打包），观察过程 client and server ，和产物输出目录
+​    2. 尝试执行`pnpm build` 构建（打包）
 
-尝试执行`pnpm genertate` 生成静态站点，观察过程和产物输出目录。 生成静态文件在`.output/public`
+> 观察过程 client and server ，和产物输出目录
 
-设置开源权限仓库可见：setting-General-Danger Zone(拉到底) - This repository is currently public.
+3. 尝试执行`pnpm genertate` 生成静态站点，
 
-设置 Github Pages：打开 setting - Pages，Build and deployment，Deploy from a branch，打包目标分支，/docs，Save
+>  观察过程和产物输出目录。 生成静态文件在`.output/public`
 
-这一步设置 Github Pages 部署目录是 【目标分支】的 docs 目录。
+4. 设置开源权限仓库可见：
 
-修改 nuxt.config.ts 打包配置。来匹配 Github Pages 的设置
+>  操作步骤：setting-General-Danger Zone(拉到底) - This repository is currently public.
+>
+>  # 必须是开源项目，才能托管到github
+
+5. 设置 Github Pages：
+
+打开 setting - Pages，Build and deployment，Deploy from a branch，打包目标分支，/docs，Save
+
+>  目的：这一步设置 Github Pages 部署目录是 【目标分支】的 docs 目录。 github部署时，将获取/docs的静态文件进行部署发布
+
+6. 修改 nuxt.config.ts 打包配置
+
+目的：匹配第5步的操作- Github Pages 的设置
 
 ```typescript
 export default defineNuxtConfig({
@@ -48,17 +71,36 @@ export default defineNuxtConfig({
 });
 ```
 
-注意！！这里并不是直接将 docs 文件夹作为静态目录提供页面访问服务，而是将这个目录的文件交给 Github 去打包处理，提供静态服务。因为我们保存设置之后，github 其内部自己跑了一个 Github Action 去部署了，我们点开 Actions tab 看看。
+> 注意！！这里并不是直接将 docs 文件夹作为静态目录提供页面访问服务，而是将这个目录docs的文件交给 Github 去打包处理，提供静态服务。因为我们保存设置之后，github 其内部自己跑了一个 Github Action 去部署了，我们点开 Actions tab 看看。
+
+7. 打包
 
 `pnpm generate` 观察产物输出目录
 
-git push；Actions 中观察到自动开始构建。
+```shell
+├── docs
+│   ├── _nuxt
+│   ├── _payload.json
+│   ├── 200.html
+│   ├── 404.html
+│   ├── index.html
+```
 
-点击部署完成后生成的链接访问。观察请求，出现部分打包的静态资源请求 404，观察请求路径。
+8. 推送代码  git push
+
+9. 观察Actions ，观察到自动开始构建。
+
+10. 点击部署完成后生成的链接访问。
+
+     https://yangshangchao23.github.io/nuxt3_learn/ 
+
+11. 观察网站的网络请求
+
+    出现部分打包的静态资源请求 404，观察请求路径。
 
 ```
 // 404原因
-有些文件没加载到，这是因为我们部署的 publicPath 是 nuxt3_learn, Github Pages 默认部署到跟仓库名一样的路径中，但打包的默认配置(baseURL)是 /
+有些文件没加载到，这是因为我们部署的 publicPath 是 nuxt3_learn（ Github Pages 默认部署到跟仓库名一样的路径中），但打包的默认配置(baseURL)是 /
 ```
 
 新增 nuxt.config.ts 的 baseURL 配置
@@ -68,33 +110,54 @@ git push；Actions 中观察到自动开始构建。
 export default defineNuxtConfig({
     // 保留原来配置
     ...
-    // 新增
+    // 新增打包路径
     app: {
         baseURL: '/nuxt3_learn/'  // 仓库名
     }
 })
 ```
 
-重新构建`pnpm generate`, 观察产物输出目录。git push；Actions 中观察到自动开始构建。访问生成的链接。
+重新构建`pnpm generate`, 观察产物输出目录。
+
+```html
+// ❗ 重点观察html文件。可以发现，引用的资源
+// 添加配置访问基地址（子目录） baseURL 之前
+<script type="module" crossorigin src="/_nuxt/xxxxx"></script>
+
+// 添加配置 baseURL 之后
+<script type="module" crossorigin src="/nuxt3_learn/_nuxt/xxxxx"></script>
+```
+
+git push；Actions 中观察到自动开始构建。访问生成的链接。
 
 可以看到，请求路径对了，但是还是 404，找不到文件，这是为什么呢？
 
-经过 Google，才知道，Github Pages 构建部署时候，会忽略隐藏文件比如`.`开头文件，`_`开头的文件也会忽略，而我们的构建产物，刚好是在`_nuxt`目录下面，还有个 `_payload.json`文件，这些都被忽略，导致文件找不到。
+>  经过 Google，才知道，Github Pages 构建部署时候，会忽略隐藏文件比如`.`开头文件，`_`开头的文件也会忽略，而我们的构建产物，刚好是在`_nuxt`目录下面，还有个 `_payload.json`文件，这些都被忽略，导致文件找不到。
 
 ```typescript
 export default defineNuxtConfig({
   // 新增
   app: {
-    baseURL: '/nuxt-github-pages/',
+    baseURL: '/nuxt3_learn/',
     buildAssetsDir: 'nuxt_assets',
   },
   experimental: {
-    payloadExtraction: false, // 设置不需要生成这个实验性文件
+    payloadExtraction: false, // 设置不需要生成这个实验性文件 配置后 _payload.json将不会生成
   },
 });
 ```
 
-重新构建`pnpm generate`, 观察产物输出目录。git push；Actions 中观察到自动开始构建。访问生成的链接。
+重新构建`pnpm generate`, 观察产物输出目录。
+
+```shell
+├── docs
+│   ├── nuxt_assets   // _nuxt 变成了 nuxt_assets
+│   ├── 200.html
+│   ├── 404.html
+│   ├── index.html
+```
+
+git push；Actions 中观察到自动开始构建。访问生成的链接。
 
 输出了 全部 200！至此 nuxt.config.ts 配置如下！
 
@@ -130,9 +193,19 @@ export default defineNuxtConfig({
 - 不优雅！—— 打包是在我们本地完成的！打包产物是提交到远程仓库的。
 - 太折腾！—— 我们为了“迎合” Github Pages Branch 分支文件夹的部署方法，改了构建产物输出的目录为 /docs，改了构建产物的文件夹名以防止特殊文件名`_`开头。
 
-期待的效果是：用 Nuxt3 默认的打包构建方式就好了，不需要改什么东西！其次，打包的过程应该得在远程打包的，构建产物不应该放在仓库里面的。
+期待的效果是：
+
+用 Nuxt3 默认的打包构建方式就好了，不需要改什么东西！
+
+其次，打包的过程应该得在远程打包的，构建产物不应该放在仓库里面的。
 
 ### 使用 Github Actions
+
+#### 第一版
+
+1. 先配置访问基地址
+
+> 因为Github默认打包后，自动增加子目录是当前的仓库名，like this : https://yangshangchao23.github.io/nuxt3_learn/
 
 ```typescript
 // nuxt.config.ts
@@ -158,66 +231,83 @@ export default defineNuxtConfig({
 });
 ```
 
-1. 新增备份文件【deploy_backup.yml】
+2. 新增部署配置文件【.github\workflows\deploy.yml】
 
-   Github Action 是根据这个配置文件干活的 ，有了这个配置 `Nuxt3`项目打包的过程就可以放到 Github 远程来做了。
+> 注意：由于最后采用了【一步到位版】，该文件已经备份在目录 deploy_backup.yml
+>
+> Github Action 是根据这个配置文件干活的 ，有了这个配置 `Nuxt3`项目打包的过程就可以放到 Github 远程来做了。
 
-   改 Github-Page 设置为 `gh-pages`的 `/(root)` 目录作为部署目录。
+3. 改 Github-Page 设置为 `gh-pages`的 `/(root)` 目录作为部署目录
 
-   -这个配置现象：
+4. 提交代码
+5. 观察现象：
 
-   ![1741333764236](D:\ysc\TESTpro\nuxt3_learn\README.assets\1741333764236.png)
+![1741333764236](D:\ysc\TESTpro\nuxt3_learn\README.assets\1741333764236.png)
 
-   需要在 template_blank（打包目标分支）部署一次。提交代码后，会自动生成 gh-pages 分支,这里又 build+部署一次（这个才是真正部署）
-   所以提交代码之后触发了两个 workflow, 其中一个是我们前面配置的 Github Pages 默认的部署行为，只要你提交代码都会有，另一个才是我们配置的打包 workflow【gh-pages 分支】
-   此时检查 Github- Pages 的配置应为 gh-pages 分支 + /root 目录，手动 save，就会触发打包配置文件【.github\workflows\deploy.yml】
-   第一次修改提交代码，需要手动 save 部署。后续 git push 之后就会自动部署。会出现两个 workflow, 先 template_blank 分支 deploy，后触发部署文件 gh-pages 分支 build and deploy。
+需要在 template_blank（打包目标分支）部署一次。提交代码后，会自动生成 gh-pages 分支,这里又 build+部署一次（这个才是真正部署）
 
-   总结提交代码后的工作流程：
+> 所以提交代码之后触发了两个 workflow, 其中一个是我们前面配置的 Github Pages 默认的部署行为，只要你提交代码都会有，另一个才是我们配置的打包 workflow【gh-pages 分支】
+> 此时检查 Github- Pages 的配置应为 gh-pages 分支 + /root 目录，手动 save，就会触发打包配置文件【.github\workflows\deploy.yml】
 
-   ```
-   我们提交代码，触发自己的工作流。打包完成会提交到 `gh-pages`分支（如果没有gh-pages分支会自动生成这个分支），之后由于 Github Pages 监听这个分支，然后触发了 Github Pages 的重新部署。这里依然要经过 Github Pages 默认的分支（gh-pages的workflow）打包部署，所有上面提到问题依然存在，产物文件不能是`_`开头文件、`.`开头文件，所以还是不能用 Nuxt3 默认的打包配置。
-   ```
+❗ 第一次修改提交代码，需要手动 save 部署。后续 git push 之后就会自动部署。会出现两个 workflow, 先 template_blank 分支 deploy，后触发部署文件 gh-pages 分支 build and deploy。
 
-   #### 问题分析
+总结提交代码后的工作流程：
 
-   两个 flow 不优雅！ 能不能一步到位，不要经过分支啊？直接从 Github Action 就部署到 Github Pages 呢？ 所以需要以下第二种优化。并且要求：不设置 nuxt.config.ts 的打包配置，使用默认打包配置！
+```
+我们提交代码，触发自己的工作流。打包完成会提交到 `gh-pages`分支（如果没有gh-pages分支会自动生成这个分支），之后由于 Github Pages 监听这个分支，然后触发了 Github Pages 的重新部署。这里依然要经过 Github Pages 默认的分支（gh-pages的workflow）打包部署，所有上面提到问题依然存在，产物文件不能是`_`开头文件、`.`开头文件，所以还是不能用 Nuxt3 默认的打包配置。
+```
 
-2. Github Action 打包 Nuxt3 项目并部署 Github Pages
+#### 问题分析
 
-   ```typescript
-   // nuxt.config.ts
-   // https://nuxt.com/docs/api/configuration/nuxt-config
-   export default defineNuxtConfig({
-     compatibilityDate: '2024-04-03',
-     devtools: { enabled: true },
-     app: {
-       // 保留baseURL
-       baseURL: '/nuxt3_learn/',
-       // buildAssetsDir: 'nuxt_assets',
-     },
-     // ssr: false,
-     // nitro: {
-     //   output: {
-     //     publicDir: 'docs',
-     //   }
-     // },
-     // 注释这个实验性配置
-     // experimental: {
-     //   payloadExtraction: false,
-     // },
-   });
-   ```
+两个 flow 不优雅！ 能不能一步到位，不要经过分支啊？直接从 Github Action 就部署到 Github Pages 呢？ 所以需要以下第二种优化。并且要求：不设置 nuxt.config.ts 的打包配置，使用默认打包配置！
 
-   部署配置文件【.github\workflows\deploy.yml】
+#### **一步到位版**
 
-   配置文件编写完成，在 Github- Page 修改部署方式为 Github Actions
+Github Action 打包 Nuxt3 项目并部署 Github Pages 
 
-   提交代码
+1. 先配置打包后访问基地址（子目录）
 
-   现象：只出现一个 workflow [template_blank](https://github.com/yangshangchao23/nuxt3_learn/tree/refs/heads/template_blank) 分支 过程是 build and deploy
+> 因为Github默认打包后，自动增加子目录是当前的仓库名，like this : https://yangshangchao23.github.io/nuxt3_learn/
 
-   ![1741331993016](D:\ysc\TESTpro\nuxt3_learn\README.assets\1741331993016.png)
+```typescript
+// nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-04-03',
+  devtools: { enabled: true },
+  app: {
+    // 保留baseURL
+    baseURL: '/nuxt3_learn/'
+    // buildAssetsDir: 'nuxt_assets',
+  },
+  // ssr: false,
+  // nitro: {
+  //   output: {
+  //     publicDir: 'docs',
+  //   }
+  // },
+  // 注释这个实验性配置
+  // experimental: {
+  //   payloadExtraction: false,
+  // },
+});
+```
+
+2. 再编写配置文件：
+
+部署配置文件【.github\workflows\deploy.yml】
+
+3. 再修改部署方式为Github Actions
+
+配置文件编写完成，在 Github- Page 修改部署方式为 Github Actions
+
+4. 再提交代码
+
+5. 再观察现象：
+
+只出现一个 workflow [template_blank](https://github.com/yangshangchao23/nuxt3_learn/tree/refs/heads/template_blank) 分支 过程是 build and deploy
+
+![1741331993016](D:\ysc\TESTpro\nuxt3_learn\README.assets\1741331993016.png)
 
 # Nuxt 3 Minimal Starter
 
